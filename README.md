@@ -18,7 +18,6 @@ I would like a web application framework, I will use aws, my language will be ty
     AWS DynamoDB for database
     AWS S3 for file storage
 
-
 Separating infrastructure and source code is a good practice and can help with manageability and scalability. We can use AWS CDK to create separate stacks for your infrastructure and your project source code.
 
 Then I need two git repos, one for the infrastructure, and one for the source code.
