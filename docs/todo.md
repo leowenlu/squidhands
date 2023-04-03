@@ -1,0 +1,36 @@
+[x] 1. Deploy cloudfront and s3 bucket, test from cloudfront endpoint to reach s3 bucket
+[ ] 2. Authentication with cognito
+    [x] - User can login
+    [ ] - change password
+    [ ] - forgot password
+    [ ] - sign up
+    [ ] - confirm sign up
+    [ ] - sign out
+    [ ] - sign in with google
+    [ ] - sign in with facebook
+    [ ] - sign in with github
+    [ ] - sign in with twitter
+    [ ] - sign in with amazon
+    [ ] - sign in with apple
+    [ ] - sign in with microsoft
+    [ ] - sign in with linkedin
+    [ ] - sign in with wechat
+    [ ] - sign in with qq
+    [ ] - sign in with weibo
+    [ ] - sign in with line
+    [ ] - sign in with spotify
+    [ ] - sign in with twitch
+    [ ] - sign in with discord
+    [ ] - sign in with dropbox
+    [ ] - sign in with instagram
+    [ ] - sign in with paypal
+    [ ] - sign in with salesforce
+    [ ] - sign in with uber
+    [ ] - sign in with yandex
+    [ ] - sign in with stackoverflow
+    [ ] - sign in with okta
+    [ ] - sign in with auth0
+    [ ] - sign in with bitbucket
+    [ ] - sign in with gitlab
+
+[ ] 3. Deploy aws api gateway
