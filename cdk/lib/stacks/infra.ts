@@ -25,9 +25,12 @@ import * as cdk from 'aws-cdk-lib';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as cognito from 'aws-cdk-lib/aws-cognito';
-import * as iam from 'aws-cdk-lib/aws-iam';
+import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import { Construct } from 'constructs';
 import * as origin from 'aws-cdk-lib/aws-cloudfront-origins';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as path from 'path';
+
 // import projectSetting module from helper folder
 const projectName = 'leoonline';
 const userPoolName = 'leoonline';
@@ -155,9 +158,50 @@ export class InfraStack extends cdk.Stack {
       ]
     });
 
+    // create API Gateway
+    const api = new apigateway.RestApi(this, 'api', {
+      restApiName: `${projectName}-api`,
+      deployOptions: {
+        stageName: 'prod',
+        loggingLevel: apigateway.MethodLoggingLevel.INFO,
+        dataTraceEnabled: true,
+        metricsEnabled: true,
+      },
+      defaultCorsPreflightOptions: {
+        allowOrigins: apigateway.Cors.ALL_ORIGINS,
+        allowMethods: apigateway.Cors.ALL_METHODS,
+        allowHeaders: apigateway.Cors.DEFAULT_HEADERS,
+      },
+    });
+
+    // Create the Lambda function for the API Gateway, the source code is in
+    // the lambda folder: ../../../lambda/ping/index.js
+    const lambdaPing = new lambda.Function(this, 'lambdaPing', {
+      runtime: lambda.Runtime.NODEJS_14_X,
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../../backend/lambdas/ping')),
+      handler: 'index.handler',
+      environment: {
+        USER_POOL_ID: userPool.userPoolId,
+        USER_POOL_CLIENT_ID: userPoolClient.userPoolClientId,
+        USER_POOL_DOMAIN_PREFIX: userPoolDomainPrefix,
+      },
+    });
+
+       // Create the API Gateway resource and method
+    const helloWorldResource = api.root.addResource('hello');
+    const helloWorldIntegration = new apigateway.LambdaIntegration(lambdaPing);
+    helloWorldResource.addMethod('GET', helloWorldIntegration);
+
+
     /**
      * Output values
      */
+
+    // output the apigateway endpoint
+    new cdk.CfnOutput(this, 'apiEndpoint', {
+      value: api.url,
+    });
+
     // output the user pool domainPrefix
     new cdk.CfnOutput(this, 'userPoolDomainPrefix', {
       value: userPoolDomainPrefix,

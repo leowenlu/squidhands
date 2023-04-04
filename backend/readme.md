@@ -1,0 +1,5 @@
+- apigateway creator lambda function which is cfn customResource.
+- filename will be the path of apigateway, content will be deployed as lambda function resource.
+- swagger file will be populated will file name as apigateway path and content as lambda function arn deployed.
+- the swagger file will be deployed as apigateway.
+- stack update will be triggered if any change in the file, the custom resource will be triggered and ApiGateway will be updated.

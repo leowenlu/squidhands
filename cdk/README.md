@@ -68,3 +68,11 @@ While Amazon S3 can host static web content, it doesn't support running server-s
 
 ## Backend
 
+We will use AWS API Gateway's integration with AWS Lambda to trigger a Lambda function with an API Gateway request, use OpenAPI to build the API Gateway paths and integrate with Lambda functions, and use AWS CDK to define the infrastructure stack for the backend.
+
+### openapi and swagger with apigateway
+
+ This will dynamically deploy the API Gateway resources and methods based on the OpenAPI specification. This is useful for creating a RESTful API for a serverless application, because it allows us to define the API resources and methods in a single file, and then use the same file to deploy the API to AWS API Gateway. This makes it easy to manage the API resources and methods, and to keep the API definition in sync with the actual API.
+
+#Ref https://github.com/aws-samples/api-gateway-dynamic-publish
+
