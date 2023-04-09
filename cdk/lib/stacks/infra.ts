@@ -152,7 +152,9 @@ export class InfraStack extends cdk.Stack {
         callbackUrls: callbackUrls
       },
       generateSecret: false,
-
+      refreshTokenValidity: cdk.Duration.hours(1),
+      accessTokenValidity: cdk.Duration.minutes(20),
+      idTokenValidity: cdk.Duration.minutes(20),
       supportedIdentityProviders: [
         cognito.UserPoolClientIdentityProvider.COGNITO
       ]
